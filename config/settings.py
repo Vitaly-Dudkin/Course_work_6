@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'mailing',
     'user_app',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
@@ -131,7 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
 
 # CRONJOBS = [
 #     ('*/5 * * * *', 'mailing.service.send_mails')
