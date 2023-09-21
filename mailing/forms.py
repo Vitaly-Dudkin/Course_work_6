@@ -1,6 +1,6 @@
 from django import forms
 
-from mailing.models import MailingSettings
+from mailing.models import MailingSettings, Client
 
 
 class StyleFormMixin:
@@ -11,8 +11,13 @@ class StyleFormMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class MailingForm(StyleFormMixin, forms.ModelForm):
+class ClientForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = '__all__'
 
+
+class MailingForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = MailingSettings
         fields = '__all__'

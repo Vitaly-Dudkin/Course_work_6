@@ -54,9 +54,9 @@
             <div class="card-footer text-center">
                 <a href="{% url 'mailing:home' %}"
                    class="btn btn-success btn-warning-special mb-2">Home</a>
-                <a href="{% url 'mailing:update' object.pk %}"
+                <a href="{% url 'mailing:update_mailing' object.pk %}"
                    class="btn btn-warning btn-warning-special mb-2">Update</a>
-                <a href="{% url 'mailing:delete' object.pk %}"
+                <a href="{% url 'mailing:delete_mailing' object.pk %}"
                    class="btn btn-danger btn-danger-special mb-2">Delete</a>
             </div>
         </div>

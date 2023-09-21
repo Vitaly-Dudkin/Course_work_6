@@ -1,0 +1,23 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h2 style="text-align: center;">Clients</h2>
+<hr>
+{% for object in object_list %}
+<div class="col-3">
+    <div class="card mb-4 box-shadow">
+        <img src="#">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ object.email }}</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">Name - {{ object.full_name }}</h1>
+            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                <li>Description: {{ comment}}
+                </li>
+            </ul>
+            <a href="{% url 'mailing:detail_client' object.pk %}" class="btn btn-lg btn-block btn-primary">View Client</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

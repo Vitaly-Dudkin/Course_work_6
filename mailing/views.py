@@ -1,11 +1,29 @@
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
-from mailing.forms import MailingForm
-from mailing.models import MailingSettings
+from mailing.forms import MailingForm, ClientForm
+from mailing.models import MailingSettings, Client
 
 
 # Create your views here.
+class ClientListView(ListView):
+    model = Client
+
+
+class ClientCreateView(CreateView):
+    model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mailing:client')
+
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mailing:client')
+
+
+class ClientDetailView(DetailView):
+    model = Client
 
 
 class MailingSettingsView(ListView):
