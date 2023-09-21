@@ -1,0 +1,65 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Newsletters - <strong>{{ object.message.subject }}</strong></h4>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tr>
+                        <th>Client:</th>
+                        <td>
+                            <div style="max-height: 150px; overflow-y: auto;">
+                                <ul>
+                                    {% for client in object.clients.all %}
+                                    <li>{{ client.full_name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start:</th>
+                        <td>{{ object.start_time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Finish:</th>
+                        <td>{{ object.end_time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Interval:</th>
+                        <td>{{ object.get_interval_display }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td>{{ object.get_status_display }}</td>
+                    </tr>
+                    <tr>
+                        <th>Title:</th>
+                        <td>
+                            <div class="static-textarea">{{ object.message.subject }}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Message:</th>
+                        <td>
+                            <div class="static-textarea">{{ object.message.body|linebreaks }}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'mailing:home' %}"
+                   class="btn btn-warning btn-warning-special mb-2">Home</a>
+                <a href="{% url 'mailing:update' object.pk %}"
+                   class="btn btn-warning btn-warning-special mb-2">Update</a>
+                <a href="{% url 'mailing:delete' object.pk %}"
+                   class="btn btn-danger btn-danger-special mb-2">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

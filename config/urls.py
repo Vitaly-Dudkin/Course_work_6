@@ -22,6 +22,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mailing.urls', namespace='mailing')),
-    path('user/', include('user_app.urls', namespace='user_app')),
-    path('blog/', include('blog.urls', namespace='blog'))
+    # path('user/', include('user_app.urls', namespace='user_app')),
+    # path('blog/', include('blog.urls', namespace='blog'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

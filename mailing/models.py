@@ -16,7 +16,7 @@ class Client(models.Model):
     class Meta:
         verbose_name = 'Client'
         verbose_name_plural = 'Clients'
-        ordering = ('name',)
+        ordering = ('full_name',)
 
 
 class Message(models.Model):
@@ -64,7 +64,7 @@ class MailingSettings(models.Model):
         verbose_name_plural = 'Newsletters'
 
 
-class MailingLog:
+class MailingLog(models.Model):
 
     STATUSES = (
         ('successful', 'Success'),
