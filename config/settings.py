@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'mailing',
     'user_app',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +138,9 @@ AUTH_USER_MODEL = 'user_app.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# CRONJOBS = [
-#     ('*/5 * * * *', 'mailing.service.send_mails')
-# ]
+CRONJOBS = [
+    ('*/1 * * * *', 'mailing.services.test', '>> /tmp/cron_test.log 2>&1')
+]
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465

@@ -35,11 +35,11 @@ class Message(models.Model):
 
 # Create your models here.
 class MailingSettings(models.Model):
-    choice_period = [
+    choice_period = (
         (1, 'once in a day'),
         (7, 'once in a week'),
         (31, 'once in a month'),
-    ]
+    )
 
     STATUSES = (
         ('created', 'created'),
@@ -53,7 +53,7 @@ class MailingSettings(models.Model):
     status = models.CharField(choices=STATUSES, default='created', verbose_name='Status')
 
     clients = models.ManyToManyField(Client, verbose_name='Clients')  # ManyToManyField?
-    message = models.ForeignKey(Message, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Message')
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Message')
     owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='User')
 
     # log =
