@@ -1,14 +1,16 @@
 from django.db import models
 
+from user_app.models import User
+
 
 class Client(models.Model):
-
     email = models.EmailField(unique=True, max_length=60, verbose_name='Email')
     full_name = models.CharField(max_length=150, verbose_name='Full_name')
     comment = models.TextField(null=True, blank=True, verbose_name='Comments')
 
     phone = models.CharField(max_length=35, verbose_name='Phone number', null=True, blank=True)
     avatar = models.ImageField(upload_to='users/', verbose_name='image', null=True, blank=True)
+    owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='User')
 
     def __str__(self):
         return f"{self.full_name} {self.email}"
@@ -20,7 +22,6 @@ class Client(models.Model):
 
 
 class Message(models.Model):
-
     subject = models.CharField(default='No subject', max_length=100, verbose_name='Title')
     body = models.TextField(null=True, blank=True, verbose_name='Message')
 
@@ -34,7 +35,6 @@ class Message(models.Model):
 
 # Create your models here.
 class MailingSettings(models.Model):
-
     choice_period = [
         (1, 'once in a day'),
         (7, 'once in a week'),
@@ -49,11 +49,13 @@ class MailingSettings(models.Model):
 
     start_time = models.DateTimeField(verbose_name='Start time')
     end_time = models.DateTimeField(null=True, blank=True, verbose_name='End time')
-    interval = models.PositiveSmallIntegerField(choices=choice_period, verbose_name='interval')
-    status = models.CharField(choices=STATUSES, default='created', verbose_name='status')
+    interval = models.PositiveSmallIntegerField(choices=choice_period, verbose_name='Interval')
+    status = models.CharField(choices=STATUSES, default='created', verbose_name='Status')
 
     clients = models.ManyToManyField(Client, verbose_name='Clients')  # ManyToManyField?
-    message = models.ForeignKey(Message, null=True, blank=True, on_delete=models.CASCADE, verbose_name='message')
+    message = models.ForeignKey(Message, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Message')
+    owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='User')
+
     # log =
 
     def __str__(self):
@@ -65,7 +67,6 @@ class MailingSettings(models.Model):
 
 
 class MailingLog(models.Model):
-
     STATUSES = (
         ('successful', 'Success'),
         ('error', 'Error')
