@@ -6,9 +6,9 @@
             <div class="card">
                 <div class="card-header">
                     {% if object %}
-                        Change Newsletters
+                        Change Message
                     {% else %}
-                        Create Newsletters
+                        Create Message
                     {% endif %}
                 </div>
                 <div class="card-body">
@@ -16,7 +16,6 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-success">
-
                             {% if object %}
                                 Save
                             {% else %}
