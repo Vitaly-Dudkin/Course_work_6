@@ -19,20 +19,16 @@
                     </tr>
                     <tr>
                         <th>phone:</th>
-                        <td>{{ object.get_phone }}</td>
-                    </tr>
-                     <tr>
-                        <th>avatar:</th>
-                        <td>{{ object.get_phone }}</td>
+                        <td>{{ object.phone }}</td>
                     </tr>
                 </table>
             </div>
             <div class="card-footer text-center">
-                <a href="{% url 'mailing:home' %}"
-                   class="btn btn-success btn-warning-special mb-2">Home</a>
-                <a href="{% url 'mailing:update_mailing' object.pk %}"
+                <a href="{% url 'mailing:client' %}"
+                   class="btn btn-primary btn-warning-special mb-2">Back</a>
+                <a href="{% url 'mailing:update_client' object.pk %}"
                    class="btn btn-warning btn-warning-special mb-2">Update</a>
-                <a href="{% url 'mailing:delete_mailing' object.pk %}"
+                <a href="{% url 'mailing:delete_client' object.pk %}"
                    class="btn btn-danger btn-danger-special mb-2">Delete</a>
             </div>
         </div>

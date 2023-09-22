@@ -1,0 +1,29 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<div class="col-6">
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">
+            Delete Client
+        </h2></div>
+
+        <div class="card-body">
+            Name - <h3>{{ object.name }}</h3>
+            <hr>
+            Description: <h4>{{ object.comment }}</h4>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <hr>
+                 <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+
+        </div>
+        <div class="card-footer">
+
+            <a href="{% url 'mailing:detail_client' object.pk %}" type="button" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

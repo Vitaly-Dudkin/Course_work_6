@@ -26,6 +26,11 @@ class ClientDetailView(DetailView):
     model = Client
 
 
+class ClientDeleteView(DeleteView):
+    model = Client
+    success_url = reverse_lazy('mailing:client')
+
+
 class MailingSettingsView(ListView):
     model = MailingSettings
 

@@ -10,9 +10,9 @@
             <h4 class="my-0 font-weight-normal">{{ object.email }}</h4>
         </div>
         <div class="card-body">
-            <h1 class="card-title pricing-card-title">Name - {{ object.full_name }}</h1>
+            <h2 class="card-title pricing-card-title">Name - {{ object.full_name }}</h2>
             <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                <li>Description: {{ comment}}
+                <li>Description: {{ object.comment }}
                 </li>
             </ul>
             <a href="{% url 'mailing:detail_client' object.pk %}" class="btn btn-lg btn-block btn-primary">View Client</a>
