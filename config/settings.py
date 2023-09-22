@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mailing',
+    'user_app',
 ]
 
 MIDDLEWARE = [
