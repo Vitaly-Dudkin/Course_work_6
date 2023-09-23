@@ -1,3 +1,6 @@
+def test():
+    print('deede')
+
 # import datetime
 #
 # from django.conf import settings

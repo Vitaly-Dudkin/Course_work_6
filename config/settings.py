@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mailing',
+    'user_app',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -132,9 +134,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# CRONJOBS = [
-#     ('*/5 * * * *', 'mailing.service.send_mails')
-# ]
+AUTH_USER_MODEL = 'user_app.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+CRONJOBS = [
+    ('*/1 * * * *', 'mailing.services.test', '>> /tmp/cron_test.log 2>&1')
+]
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
