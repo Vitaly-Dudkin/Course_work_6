@@ -1,0 +1,34 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+
+<style>
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .center-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .text-content {
+        text-align: center;
+    }
+
+</style>
+
+<div class="center-container bg-success-subtle">
+    <div class="text-content">
+        <h2>Attention!</h2>
+        <p>A verification link has been sent to your email..</p>
+        <p>Follow it to confirm your account.</p>
+        <a href="{% url 'mailing:home' %}" class="btn btn-primary confirm-update mt-3">Main page</a>
+    </div>
+</div>
+
+{% endblock %}

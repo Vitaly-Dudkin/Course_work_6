@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from user_app.forms import UserRegisterForm, UserProfileForm
 from user_app.models import User
@@ -15,7 +15,7 @@ class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = 'user_app/registration.html'
-    success_url = reverse_lazy('user_app:login')
+    success_url = reverse_lazy('user_app:info_page')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -35,6 +35,11 @@ class RegisterView(CreateView):
             self.object.save()
 
         return super().form_valid(form)
+
+
+class InfoView(ListView):
+    model = User
+    template_name = 'user_app/info_page.html'
 
 
 def verification(request, verification_code):
