@@ -139,7 +139,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 CRONJOBS = [
-    ('*/1 * * * *', 'mailing.services.test', '>> /tmp/cron_test.log 2>&1')
+    ('*/1 * * * *', 'mailing.services.send_mails')
 ]
 
 EMAIL_HOST = 'smtp.yandex.ru'
