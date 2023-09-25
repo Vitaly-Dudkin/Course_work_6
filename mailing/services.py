@@ -6,6 +6,10 @@ from django.core.mail import send_mail
 from mailing.models import MailingSettings, MailingLog
 
 
+def test():
+    print('add run')
+
+
 def _send_email(mailing_settings, client):
     result = send_mail(
         subject=mailing_settings.message.subject,
@@ -30,7 +34,7 @@ def send_mails():
             for mailing_client in mailing_setting.clients.all():
 
                 mailing_log = MailingLog.objects.filter(client=mailing_client,
-                                                       mailing=mailing_setting)
+                                                        mailing=mailing_setting)
                 if mailing_log.exists():
                     last_try_date = mailing_log.order_by('-last_try').first().last_try
 
