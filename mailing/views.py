@@ -1,11 +1,27 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
+from blog.models import Blog
 from mailing.forms import MailingForm, ClientForm, MessageForm
 from mailing.models import MailingSettings, Client, Message
 
 
 # Create your views here.
+
+
+def index(request):
+    object_list = MailingSettings.objects.all()
+    client_list = Client.objects.distinct()
+
+    context = {'object_list': object_list,
+               'active_mailings': object_list.filter(status=MailingSettings.STATUSES[1][0]),
+               'clients_list': client_list,
+               }
+
+    return render(request, 'mailing/homepage.html', context)
+
+
 class ClientListView(ListView):
     model = Client
 
