@@ -6,10 +6,6 @@ from django.core.mail import send_mail
 from mailing.models import MailingSettings, MailingLog
 
 
-def test():
-    print('add run')
-
-
 def _send_email(mailing_settings, client):
     result = send_mail(
         subject=mailing_settings.message.subject,

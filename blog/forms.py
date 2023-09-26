@@ -1,8 +1,9 @@
 from django import forms
 from blog.models import Blog
+from mailing.forms import StyleFormMixin
 
 
-class BlogEntryForm(forms.ModelForm):
+class BlogForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Blog

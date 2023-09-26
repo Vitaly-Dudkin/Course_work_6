@@ -1,0 +1,41 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 order-md-1">
+        <div class="container mt-5">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title"> Title - {{ object.title }}</h5>
+                </div>
+                <div class="card-content-wrapper">
+                    <div class="card-body">
+                    {% if object.image %}
+                    <img src="#" alt="image" class="card-image">
+                    {% endif %}
+                        </div>
+                    <div class="card-blog-content">
+                        <div class="content-container">
+                            <p class="card-text"> Description: {{ object.content }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-container clear-float p-3">
+                    <span class="text-muted float-left">Publication date: {{ object.publication_date|date:"d.m.Y" }}</span>
+                    <br>
+                    <span class="text-muted float-right">Views: {{ object.views_number }} </span>
+                </div>
+                <div class="card-footer">
+                    <div class="button-container">
+                        <a href="{% url 'blog:blog' %}" class="btn btn-warning btn-warning-special">Back</a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'blog:update_blog' object.pk %}" class="btn btn-warning btn-warning-special">Change</a>
+                            <a href="{% url 'blog:delete_blog' object.pk %}" class="btn btn-danger btn-danger-special">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
