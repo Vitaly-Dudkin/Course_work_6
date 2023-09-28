@@ -13,6 +13,7 @@ from user_app.models import User
 
 # Create your views here.
 class RegisterView(CreateView):
+    """Контроллер для регистрации пользователя"""
     model = User
     form_class = UserRegisterForm
     template_name = 'user_app/registration.html'
@@ -39,11 +40,13 @@ class RegisterView(CreateView):
 
 
 class InfoView(ListView):
+    """Контроллер для уведомления об отправке письма"""
     model = User
     template_name = 'user_app/info_page.html'
 
 
 def verification(request, verification_code):
+    """Контроллер для активации аккаунта"""
     user = User.objects.get(verification_code=verification_code)
     user.is_active = True
     user.save()
@@ -51,6 +54,7 @@ def verification(request, verification_code):
 
 
 class ProfileView(UpdateView):
+    """Контроллер для просмотра профиля пользователя"""
     model = User
     form_class = UserProfileForm
     success_url = reverse_lazy('mailing:home')
@@ -60,11 +64,13 @@ class ProfileView(UpdateView):
 
 
 class UserListView(PermissionRequiredMixin, ListView):
+    """Контроллер для просмотра пользователей"""
     model = User
     permission_required = ('user_app.view_user',)
 
 
 def switch_status_user(request, pk):
+    """Контроллер для смены статуса рассылки"""
     user = User.objects.get(pk=pk)
     user.is_active = not user.is_active
     user.save()
