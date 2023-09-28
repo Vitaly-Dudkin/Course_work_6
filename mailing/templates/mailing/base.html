@@ -208,17 +208,22 @@
             </a>
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                {% if user.is_staff or user.is_superuser %}
+                <a class="me-3 py-2 btn btn-success" href="{% url 'user_app:user_list' %}">Users</a>
+                {% endif %}
                 <a class="me-3 py-2 btn btn-success" href="{% url 'blog:blog' %}">Blog</a>
                 <a class="me-3 py-2 btn btn-success" href="{% url 'mailing:client' %}">Clients</a>
                 <a class="me-3 py-2 btn btn-success" href="{% url 'mailing:main_mailing' %}">Newsletters</a>
                 <a class="me-3 py-2 btn btn-success" href="{% url 'mailing:message' %}">Message</a>
+                {% if user.is_authenticated %}
+                {% if not user.is_staff %}
                 <a class="me-3 py-2 btn btn-danger text-decoration-success" href="{% url 'mailing:create_mailing' %}">Add
                     Newsletters</a>
                 <a class="me-3 py-2 btn btn-danger text-decoration-success" href="{% url 'mailing:create_client' %}">Add
                     Client</a>
                 <a class="me-3 py-2 btn btn-danger text-decoration-success" href="{% url 'mailing:create_message' %}">Add
                     Message</a>
-                {% if user.is_authenticated %}
+                {% endif %}Й
                 <a href="{% url 'user_app:logout' %}" class="me-3 py-2 btn btn-success"><h3>Exit</h3></a>
                 <a href="{% url 'user_app:profile' %}"  class="me-3 py-2 btn btn-primary"><h3>Profile</h3></a>
                 {% else %}

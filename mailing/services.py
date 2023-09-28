@@ -27,6 +27,7 @@ def send_mails():
     datetime_now = datetime.datetime.now(datetime.timezone.utc)
     for mailing_setting in MailingSettings.objects.exclude(status=MailingSettings.STATUSES[2][0]):
         if (datetime_now > mailing_setting.start_time) and (datetime_now < mailing_setting.end_time):
+            mailing_setting.status = MailingSettings.STATUSES[1][0]
             for mailing_client in mailing_setting.clients.all():
 
                 mailing_log = MailingLog.objects.filter(client=mailing_client,
@@ -46,3 +47,6 @@ def send_mails():
 
                 else:
                     _send_email(mailing_setting, mailing_client)
+        else:
+            mailing_setting.status = MailingSettings.STATUSES[2][0]
+        mailing_setting.save()

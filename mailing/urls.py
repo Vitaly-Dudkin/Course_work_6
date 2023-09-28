@@ -1,16 +1,16 @@
 from django.urls import path
 
 from mailing.apps import MailingConfig
-from mailing.views import MailingSettingsView, MailingSettingsCreateView, MailingSettingsDetailView, \
+from mailing.views import MailingSettingsListView, MailingSettingsCreateView, MailingSettingsDetailView, \
     MailingSettingsUpdateView, MailingSettingsDeleteView, ClientListView, ClientCreateView, ClientDetailView, \
     ClientUpdateView, ClientDeleteView, MessageView, MessageDetailView, MessageCreateView, MessageUpdateView, \
-    MessageDeleteView, index
+    MessageDeleteView, index, switch_status_newsletter
 
 app_name = MailingConfig.name
 
 urlpatterns = [
     path('', index, name='home'),
-    path('main_mailing', MailingSettingsView.as_view(), name='main_mailing'),
+    path('main_mailing', MailingSettingsListView.as_view(), name='main_mailing'),
     path('create_mailing/', MailingSettingsCreateView.as_view(), name='create_mailing'),
     path('update_mailing/<int:pk>/', MailingSettingsUpdateView.as_view(), name='update_mailing'),
     path('detail_mailing/<int:pk>/', MailingSettingsDetailView.as_view(), name='detail_mailing'),
@@ -27,6 +27,8 @@ urlpatterns = [
     path('create_message/', MessageCreateView.as_view(), name='create_message'),
     path('update_message/<int:pk>/', MessageUpdateView.as_view(), name='update_message'),
     path('delete_message/<int:pk>/', MessageDeleteView.as_view(), name='delete_message'),
+
+    path('switch_status_newsletter/<int:pk>/', switch_status_newsletter, name='switch_status_newsletter'),
 
 
 ]

@@ -1,6 +1,7 @@
 import secrets
 
 from django.conf import settings
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
@@ -56,3 +57,15 @@ class ProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class UserListView(PermissionRequiredMixin, ListView):
+    model = User
+    permission_required = ('user_app.view_user',)
+
+
+def switch_status_user(request, pk):
+    user = User.objects.get(pk=pk)
+    user.is_active = not user.is_active
+    user.save()
+    return redirect('user_app:user_list')

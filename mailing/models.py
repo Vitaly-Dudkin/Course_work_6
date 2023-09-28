@@ -56,7 +56,6 @@ class MailingSettings(models.Model):
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Message')
     owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='User')
 
-    # log =
 
     def __str__(self):
         return f'{self.message}: {self.status} ({self.interval})'
