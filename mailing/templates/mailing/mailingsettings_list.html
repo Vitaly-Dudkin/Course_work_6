@@ -11,10 +11,25 @@
             </div>
             <div class="card-body">Status - {{ object.status }}</div>
             <div class="card-footer">
-             <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:detail_mailing' object.pk %}">View detail</a>
+
+                <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:detail_mailing' object.pk %}">View
+                    detail</a>
+                <div class="card-footer">
+                    {% if user.is_staff or user.is_superuser %}
+                    {% if object.status == 'started' %}
+                    <a href="{% url 'mailing:switch_status_newsletter' object.pk %}" class="btn btn-dark">Отключить</a>
+                    {% elif object.status == 'finished' %}
+                    <a href="{% url 'mailing:switch_status_newsletter' object.pk %}" class="btn btn-success">Включить</a>
+                    {% else %}
+                    <a href="{% url 'mailing:update_mailing' object.pk %}" class="btn btn-primary">Изменить</a>
+                    <a href="{% url 'mailing:delete_mailing' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endfor %}
 {% endblock %}

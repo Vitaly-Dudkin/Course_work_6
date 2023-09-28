@@ -11,8 +11,8 @@
                 <form method="post" action="" class="text-center mt-4">
                     {% csrf_token %}
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-danger btn-danger-special px-2 mr-2" type="submit">Удалить</button>
-                        <a href="{% url 'mailing:home' %}" class="btn btn-warning btn-warning-special px-2">Отмена</a>
+                        <button class="btn btn-danger btn-danger-special px-2 mr-2" type="submit">Delete</button>
+                        <a href="{% url 'mailing:main_mailing' %}" class="btn btn-warning btn-warning-special px-2">Back</a>
                     </div>
                 </form>
             </div>
