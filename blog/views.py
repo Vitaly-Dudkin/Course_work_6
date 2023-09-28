@@ -7,10 +7,16 @@ from blog.models import Blog
 
 # Create your views here.
 class BlogListView(ListView):
+    """
+    Контроллер для просмотра объектов Blog
+    """
     model = Blog
 
 
 class BlogDetailView(DetailView):
+    """
+     Контроллер для просмотра отдельного объекта Blog
+     """
     model = Blog
 
     def get_object(self, queryset=None):
@@ -22,12 +28,18 @@ class BlogDetailView(DetailView):
 
 
 class BlogDeleteView(DeleteView):
+    """
+    Контроллер для удвления объекта Blog
+    """
     model = Blog
 
     success_url = reverse_lazy('blog:blog')
 
 
 class BlogCreateView(CreateView):
+    """
+      Контроллер для создания объекта Blog
+      """
     model = Blog
 
     form_class = BlogForm
@@ -35,6 +47,9 @@ class BlogCreateView(CreateView):
 
 
 class BlogUpdateView(UpdateView):
+    """
+    Контроллер для изменения объекта Blog
+    """
     model = Blog
 
     success_url = reverse_lazy('blog:blog')

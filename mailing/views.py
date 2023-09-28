@@ -10,7 +10,7 @@ from mailing.models import MailingSettings, Client, Message
 # Create your views here.
 
 class OnlyForOwnerOrSuperuserMixin:
-
+    """Миксин на проверку доступа к чужой информации"""
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user and not self.request.user.is_superuser:
@@ -31,6 +31,7 @@ def index(request):
 
 
 class ClientListView(LoginRequiredMixin, ListView):
+    """Контроллер для просмотра всех клиентов"""
     model = Client
 
     def get_queryset(self):
@@ -43,27 +44,32 @@ class ClientListView(LoginRequiredMixin, ListView):
 
 
 class ClientCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер для создания клиентов"""
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client')
 
 
 class ClientUpdateView(LoginRequiredMixin, UpdateView):
+    """Контроллер для изменения клиентов"""
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client')
 
 
 class ClientDetailView(LoginRequiredMixin, DetailView):
+    """Контроллер для просмотра отдельного клиента"""
     model = Client
 
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
+    """Контроллер для удаления клиентов"""
     model = Client
     success_url = reverse_lazy('mailing:client')
 
 
 class MailingSettingsListView(LoginRequiredMixin, ListView):
+    """Контроллер для просмотра всех настроек рассылки"""
     model = MailingSettings
 
     def get_queryset(self):
@@ -76,6 +82,7 @@ class MailingSettingsListView(LoginRequiredMixin, ListView):
 
 
 def switch_status_newsletter(request, pk):
+    """Контроллер для смены статуса рассылки"""
     mailing = MailingSettings.objects.get(pk=pk)
     if mailing.status == 'started':
         mailing.status = 'finished'
@@ -86,6 +93,7 @@ def switch_status_newsletter(request, pk):
 
 
 class MailingSettingsCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер для создания настроек рассылки"""
     model = MailingSettings
     form_class = MailingForm
     success_url = reverse_lazy('mailing:main_mailing')
@@ -104,40 +112,48 @@ class MailingSettingsCreateView(LoginRequiredMixin, CreateView):
 
 
 class MailingSettingsUpdateView(LoginRequiredMixin, OnlyForOwnerOrSuperuserMixin, UpdateView):
+    """Контроллер для изменения настроек рассылки"""
     model = MailingSettings
     form_class = MailingForm
     success_url = reverse_lazy('mailing:main_mailing')
 
 
 class MailingSettingsDetailView(LoginRequiredMixin, DetailView):
+    """Контроллер для просмотра отдельной настройки рассылки"""
     model = MailingSettings
 
 
 class MailingSettingsDeleteView(LoginRequiredMixin, OnlyForOwnerOrSuperuserMixin, DeleteView):
+    """Контроллер для удаления настроек рассылки"""
     model = MailingSettings
     success_url = reverse_lazy('mailing:main_mailing')
 
 
 class MessageView(LoginRequiredMixin, ListView):
+    """Контроллер для просмотра всех сообщений"""
     model = Message
 
 
 class MessageDetailView(LoginRequiredMixin, DetailView):
+    """Контроллер для просмотра деталий сообщения"""
     model = Message
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер для создания сообщения"""
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message')
 
 
 class MessageUpdateView(LoginRequiredMixin,OnlyForOwnerOrSuperuserMixin, UpdateView):
+    """Контроллер для изменения сообщения"""
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message')
 
 
 class MessageDeleteView(LoginRequiredMixin,OnlyForOwnerOrSuperuserMixin, DeleteView):
+    """Контроллер для удаления сообщения"""
     model = Message
     success_url = reverse_lazy('mailing:message')
