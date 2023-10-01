@@ -1,0 +1,48 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Mailing Service SkyChimp</h1>
+            <p class="lead text-body-secondary">Allows you to manage mailings and adjust their settings</p>
+
+            <div class="row py-2">
+                <div class="col-6">
+                    <div class="card py-2 bg-dark text-white">
+                        Number of mailings: {{ object_list|length }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card py-2 bg-dark text-white">
+                        <text>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="0.625em" viewBox="0 0 512 512">
+                                <style>svg {
+                                        fill: #1cce60
+                                    }
+                                </style>
+                                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/>
+                            </svg>
+                            Number of active mailings: {{ active_mailings|length }}
+                        </text>
+                    </div>
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <div class="card py-2 bg-dark text-white">
+                        Number of unique clients: {{ clients_list|length }}
+                    </div>
+                </div>
+            </div>
+            <p class="py-1 text-body-secondary">In order to start working with mailings, you need
+                log in or go through authorization</p>
+            <p>
+                <a href="{% url 'user_app:register' %}" class="btn btn-success my-2 w-75">Registration</a>
+                <a href="{% url 'user_app:login' %}" class="btn btn-success my-2 w-75">Log in</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

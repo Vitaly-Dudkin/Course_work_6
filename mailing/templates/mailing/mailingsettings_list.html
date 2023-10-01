@@ -1,0 +1,35 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<h2 style="text-align: center;">Newsletters</h2>
+<hr>
+{% for object in object_list %}
+<div class="row row-cols-md-3 mb-3 text-center">
+    <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ object.message }}</h4>
+            </div>
+            <div class="card-body">Status - {{ object.status }}</div>
+            <div class="card-footer">
+
+                <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:detail_mailing' object.pk %}">View
+                    detail</a>
+                <div class="card-footer">
+                    {% if user.is_staff or user.is_superuser %}
+                    {% if object.status == 'started' %}
+                    <a href="{% url 'mailing:switch_status_newsletter' object.pk %}" class="btn btn-dark">Отключить</a>
+                    {% elif object.status == 'finished' %}
+                    <a href="{% url 'mailing:switch_status_newsletter' object.pk %}" class="btn btn-success">Включить</a>
+                    {% else %}
+                    <a href="{% url 'mailing:update_mailing' object.pk %}" class="btn btn-primary">Изменить</a>
+                    <a href="{% url 'mailing:delete_mailing' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

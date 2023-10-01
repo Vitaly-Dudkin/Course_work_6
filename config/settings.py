@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     'mailing',
     'user_app',
+    'blog',
+
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -56,13 +59,13 @@ ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.templates.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.templates.context_processors.debug',
-                'django.templates.context_processors.request',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -120,6 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
@@ -132,7 +136,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+AUTH_USER_MODEL = 'user_app.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
-# CRONJOBS = [
-#     ('*/5 * * * *', 'mailing.service.send_mails')
-# ]
+CRONJOBS = [
+    ('*/1 * * * *', 'mailing.services.send_mails')
+]
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply@oscarbot.ru'
+EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
+EMAIL_USE_SSL = True
