@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelChoiceField
 
 from mailing.models import MailingSettings, Client, Message
 
@@ -18,6 +19,22 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
 
 
 class MailingForm(StyleFormMixin, forms.ModelForm):
+    clients = forms.ModelChoiceField(
+        label='Clients',
+        queryset=Client.objects.all(),
+        widget=forms.SelectMultiple(attrs={'class': 'select2'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if user.is_superuser:
+            self.fields['clients'].queryset = Client.objects.all()
+        elif user:
+            self.fields['clients'].queryset = Client.objects.filter(owner=user)
+        else:
+            self.fields['clients'].queryset = Client.objects.none()
+
     class Meta:
         model = MailingSettings
         fields = '__all__'
