@@ -11,6 +11,7 @@ from mailing.models import MailingSettings, Client, Message
 
 class OnlyForOwnerOrSuperuserMixin:
     """Миксин на проверку доступа к чужой информации"""
+
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user and not self.request.user.is_superuser:
@@ -48,6 +49,13 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client')
+
+    def form_valid(self, form):
+        user = self.request.user
+        self.object = form.save()
+        self.object.owner = user
+        self.object.save()
+        return super().form_valid(form)
 
 
 class ClientUpdateView(LoginRequiredMixin, UpdateView):
@@ -98,6 +106,11 @@ class MailingSettingsCreateView(LoginRequiredMixin, CreateView):
     form_class = MailingForm
     success_url = reverse_lazy('mailing:main_mailing')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         user = self.request.user
         self.object = form.save()
@@ -145,15 +158,22 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message')
 
+    def form_valid(self, form):
+        user = self.request.user
+        self.object = form.save()
+        self.object.owner = user
+        self.object.save()
+        return super().form_valid(form)
 
-class MessageUpdateView(LoginRequiredMixin,OnlyForOwnerOrSuperuserMixin, UpdateView):
+
+class MessageUpdateView(LoginRequiredMixin, OnlyForOwnerOrSuperuserMixin, UpdateView):
     """Контроллер для изменения сообщения"""
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message')
 
 
-class MessageDeleteView(LoginRequiredMixin,OnlyForOwnerOrSuperuserMixin, DeleteView):
+class MessageDeleteView(LoginRequiredMixin, OnlyForOwnerOrSuperuserMixin, DeleteView):
     """Контроллер для удаления сообщения"""
     model = Message
     success_url = reverse_lazy('mailing:message')
