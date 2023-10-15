@@ -70,7 +70,7 @@ class UserListView(PermissionRequiredMixin, ListView):
 
 
 def switch_status_user(request, pk):
-    """Контроллер для смены статуса рассылки"""
+    """Контроллер для смены статуса пользователя"""
     user = User.objects.get(pk=pk)
     user.is_active = not user.is_active
     user.save()
