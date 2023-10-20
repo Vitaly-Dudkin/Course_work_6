@@ -30,3 +30,5 @@ class LogAdmin(admin.ModelAdmin):
     list_display = ('last_try', 'status', 'server_response', 'client', 'mailing')
     search_fields = ('last_try', 'status', 'server_response')
     list_filter = ('last_try', 'status', 'server_response')
+
+# admin.site.register(MailingLog, LogAdmin)
